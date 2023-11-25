@@ -12,8 +12,12 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.horse.Horse;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,6 +26,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.common.Tags;
 import net.zimo.crasher.entity.EntityManager;
+import net.zimo.crasher.entity.goal.CrasherAttackPlayersGoal;
+import net.zimo.crasher.entity.goal.CrasherTemptGoal;
+import net.zimo.crasher.entity.goal.TryFindOreGoal;
 
 public class CrasherEntity extends Animal implements VariantHolder<CrasherVariant>{
 
@@ -39,10 +46,14 @@ public class CrasherEntity extends Animal implements VariantHolder<CrasherVarian
     @Override
     protected void registerGoals(){
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new BreedGoal(this, 1.2F));
-        this.goalSelector.addGoal(2, new TemptGoal(this, 1.2D, Ingredient.of(Tags.Items.ORES), false));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.2F));
-        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 2.0F, false));
+        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.5, true));
+        this.goalSelector.addGoal(2, new BreedGoal(this, 1.2F));
+        this.goalSelector.addGoal(3, new CrasherTemptGoal(this, 1.2D, Ingredient.of(Tags.Items.ORES)));
+        this.goalSelector.addGoal(4, new TryFindOreGoal(this, 1.2D, 24));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.2F));
+        this.targetSelector.addGoal(0, (new HurtByTargetGoal(this)).setAlertOthers());
+        this.targetSelector.addGoal(1, new CrasherAttackPlayersGoal(this));
+        this.targetSelector.addGoal(2, new ResetUniversalAngerTargetGoal(this, false));
     }
 
     public static AttributeSupplier.Builder createAttributes() {
