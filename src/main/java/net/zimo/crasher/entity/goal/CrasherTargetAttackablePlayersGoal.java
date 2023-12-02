@@ -9,8 +9,8 @@ import net.zimo.crasher.entity.crasher.CrasherEntity;
 
 import java.util.function.Predicate;
 
-public class CrasherAttackPlayersGoal extends NearestAttackableTargetGoal<Player> {
-    public CrasherAttackPlayersGoal(Mob pMob) {
+public class CrasherTargetAttackablePlayersGoal extends NearestAttackableTargetGoal<Player> {
+    public CrasherTargetAttackablePlayersGoal(Mob pMob) {
         super(pMob, Player.class, 20, false, true, (Predicate<LivingEntity>)null);
     }
 
@@ -33,6 +33,6 @@ public class CrasherAttackPlayersGoal extends NearestAttackableTargetGoal<Player
     }
 
     protected double getFollowDistance() {
-        return super.getFollowDistance() * 0.5D;
+        return super.getFollowDistance();
     }
 }
