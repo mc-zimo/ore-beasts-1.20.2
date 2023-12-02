@@ -10,6 +10,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 import net.zimo.crasher.entity.EntityManager;
+import net.zimo.crasher.item.ItemManager;
 import org.slf4j.Logger;
 
 import static net.minecraftforge.registries.ForgeRegistries.Keys.ITEMS;
@@ -19,15 +20,9 @@ import static net.minecraftforge.registries.ForgeRegistries.Keys.ITEMS;
 public class Crasher {
     public static final String MODID = "crasher";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(ForgeRegistries.ITEMS, Crasher.MODID);
-    public static final RegistryObject<Item> CRASHER_SPAWN_EGG = ITEMS.register("crasher_spawn_egg",
-            () -> new ForgeSpawnEggItem(EntityManager.Crasher,
-                    0x8f8f8f,0x686868,
-                    new Item.Properties()));
-
     public Crasher() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        ItemManager.register(modEventBus);
         EntityManager.register(modEventBus);
     }
 

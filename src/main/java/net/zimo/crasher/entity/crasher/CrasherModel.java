@@ -63,7 +63,9 @@ public class CrasherModel<T extends Entity> extends HierarchicalModel<T> {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.applyHeadRotation(netHeadYaw, headPitch, ageInTicks);
         this.animateWalk(CrasherAnimation.WALK, limbSwing, limbSwingAmount, 2f, 2.5f);
+        //this.animateWalk(CrasherAnimation.GALLOP, limbSwing, limbSwingAmount, 2f, 2.5f);
         this.animate(((CrasherEntity) entity).idleAnimationState, CrasherAnimation.IDLE, ageInTicks, 1f);
+        this.animate(((CrasherEntity) entity).walkAnimationState, CrasherAnimation.GALLOP, ageInTicks, 1f);
         this.animate(((CrasherEntity) entity).gallopAnimationState, CrasherAnimation.GALLOP, ageInTicks, 1f);
         this.animate(((CrasherEntity) entity).attackAnimationState, CrasherAnimation.ATTACK, ageInTicks, 1f);
     }

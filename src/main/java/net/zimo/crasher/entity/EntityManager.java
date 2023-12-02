@@ -12,7 +12,7 @@ public class EntityManager {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, net.zimo.crasher.Crasher.MODID);
 
     public static final RegistryObject<EntityType<CrasherEntity>> Crasher =
-            ENTITY_TYPES.register("crasher", () -> EntityType.Builder.of(CrasherEntity::new, MobCategory.CREATURE).sized(2f, 2f).build("crasher"));
+            ENTITY_TYPES.register("crasher", () -> EntityType.Builder.of(CrasherEntity::new, MobCategory.CREATURE).sized(2.5f, 2.5f).build("crasher"));
 
     public static void register(IEventBus eventBus){
         ENTITY_TYPES.register(eventBus);

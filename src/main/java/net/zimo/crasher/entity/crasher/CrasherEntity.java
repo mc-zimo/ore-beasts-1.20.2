@@ -23,6 +23,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.Tags;
 import net.zimo.crasher.entity.EntityManager;
+import net.zimo.crasher.entity.goal.CrasherAttackGoal;
 import net.zimo.crasher.entity.goal.CrasherTargetAttackablePlayersGoal;
 import net.zimo.crasher.entity.goal.CrasherTemptGoal;
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +71,7 @@ public class CrasherEntity extends Animal implements VariantHolder<CrasherVarian
         }
 
         if(this.isPathFinding()){
-            if(this.getSpeed()<1.5){
+            if(this.getSpeed()<0.4){
                 this.walkAnimationState.start(this.tickCount);
             }
             else{
@@ -117,11 +118,10 @@ public class CrasherEntity extends Animal implements VariantHolder<CrasherVarian
     @Override
     protected void registerGoals(){
         this.goalSelector.addGoal(0, new FloatGoal(this));
-        this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 2.4, true));
+        this.goalSelector.addGoal(1, new CrasherAttackGoal(this, 1.4f, true));
         this.goalSelector.addGoal(2, new BreedGoal(this, 1.2F));
         this.goalSelector.addGoal(3, new CrasherTemptGoal(this, 1.2D, Ingredient.of(Tags.Items.ORES)));
-        //this.goalSelector.addGoal(4, new TryFindOreGoal(this, 1.2D, 24));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.2F));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(this, 1.0F));
         this.targetSelector.addGoal(0, (new HurtByTargetGoal(this)).setAlertOthers());
         this.targetSelector.addGoal(1, new CrasherTargetAttackablePlayersGoal(this));
         this.targetSelector.addGoal(2, new ResetUniversalAngerTargetGoal(this, false));
@@ -131,9 +131,9 @@ public class CrasherEntity extends Animal implements VariantHolder<CrasherVarian
         return Mob.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 20.0D)
                 .add(Attributes.FOLLOW_RANGE, 24.0D)
-                .add(Attributes.MOVEMENT_SPEED, 0.2F)
+                .add(Attributes.MOVEMENT_SPEED, 0.3F)
                 .add(Attributes.ATTACK_DAMAGE, 4.0D)
-                .add(Attributes.ATTACK_KNOCKBACK, 0.5F);
+                .add(Attributes.ATTACK_KNOCKBACK, 1F);
     }
 
     @Override

@@ -8,8 +8,8 @@ import net.zimo.crasher.entity.crasher.CrasherEntity;
 
 public class CrasherAttackGoal extends MeleeAttackGoal {
     private final CrasherEntity entity;
-    private int attackDelay = 40;
-    private int ticksUntilNextAttack = 40;
+    private int attackDelay = 16;
+    private int ticksUntilNextAttack = 16;
     private boolean shouldCountTillNextAttack = false;
 
     public CrasherAttackGoal(PathfinderMob pMob, double pSpeedModifier, boolean pFollowingTargetEvenIfNotSeen) {
@@ -20,13 +20,13 @@ public class CrasherAttackGoal extends MeleeAttackGoal {
     @Override
     public void start() {
         super.start();
-        attackDelay = 40;
-        ticksUntilNextAttack = 40;
+        attackDelay = 16;
+        ticksUntilNextAttack = 16;
     }
 
     @Override
     protected void checkAndPerformAttack(LivingEntity pEnemy) {
-        if (this.isTimeToAttack() && this.mob.isWithinMeleeAttackRange(pEnemy) && this.mob.getSensing().hasLineOfSight(pEnemy)) {
+        if (this.mob.isWithinMeleeAttackRange(pEnemy)) {
             shouldCountTillNextAttack = true;
 
             if(isTimeToStartAttackAnimation()) {
@@ -46,7 +46,7 @@ public class CrasherAttackGoal extends MeleeAttackGoal {
     }
 
     protected void resetAttackCooldown() {
-        this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay * 2);
+        this.ticksUntilNextAttack = this.adjustedTickDelay(attackDelay + 4);
     }
 
     protected boolean isTimeToAttack() {
